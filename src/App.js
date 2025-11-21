@@ -24,70 +24,67 @@ import './App.css';
 
 // export default App;
 
-// Small UI components
-function Title({ text }) {
-  return <h1>{text}</h1>;
-}
+import { useState } from "react";
 
-function Subtitle({ text }) {
-  return <h2>{text}</h2>;
-}
+// Counter component
+function Counter() {
+  const [count, setCount] = useState(0);
 
-function Paragraph({ text }) {
-  return <p>{text}</p>;
-}
-
-function HighlightBox({ children }) {
   return (
-    <div style={{ padding: "12px", border: "2px solid black", marginTop: "10px" }}>
-      {children}
+    <div style={{ marginBottom: "20px" }}>
+      <h3>Counter: {count}</h3>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <button onClick={() => setCount(count + 1)} style={{ marginLeft: "10px" }}>
+        +
+      </button>
     </div>
   );
 }
 
-// Student card component
-function StudentCard({ name, group, favoriteSubject }) {
+// Toggle details component
+function CourseInfo() {
+  const [show, setShow] = useState(false);
+
   return (
-    <div style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
-      <h3>{name}</h3>
-      <p>Group: {group}</p>
-      <p>Favorite Subject: {favoriteSubject}</p>
+    <div style={{ marginBottom: "20px" }}>
+      <h3>Course: React Basics</h3>
+      <button onClick={() => setShow(!show)}>
+        {show ? "Hide details" : "Show details"}
+      </button>
+
+      {show && (
+        <p style={{ marginTop: "10px" }}>
+          This course teaches JSX, components, props, and state management using hooks.
+        </p>
+      )}
+    </div>
+  );
+}
+
+// Controlled input with live preview
+function LivePreview() {
+  const [text, setText] = useState("");
+
+  return (
+    <div style={{ marginBottom: "20px" }}>
+      <h3>Live Preview</h3>
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Type something..."
+      />
+      <p>You typed: {text}</p>
     </div>
   );
 }
 
 function App() {
-  const students = [
-    { id: 1, name: "Aigul", group: "G-12", favoriteSubject: "Math" },
-    { id: 2, name: "Rustam", group: "G-10", favoriteSubject: "Physics" },
-    { id: 3, name: "Adilet", group: "G-11", favoriteSubject: "Computer Science" }
-  ];
-
   return (
     <div style={{ padding: "20px" }}>
-      <Title text="About This Course" />
-      <Subtitle text="React Basics" />
-
-      <Paragraph text="JSX" />
-      <Paragraph text="para check." />
-
-      <HighlightBox>
-        <strong>Key idea:</strong> check key tyepa.
-      </HighlightBox>
-
-      <hr style={{ margin: "20px 0" }} />
-
-      <Subtitle text="Student List" />
-
-      
-      {students.map((s) => (
-        <StudentCard
-          key={s.id}
-          name={s.name}
-          group={s.group}
-          favoriteSubject={s.favoriteSubject}
-        />
-      ))}
+      <Counter />
+      <CourseInfo />
+      <LivePreview />
     </div>
   );
 }
