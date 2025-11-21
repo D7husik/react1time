@@ -24,18 +24,70 @@ import './App.css';
 
 // export default App;
 
+// Small UI components
+function Title({ text }) {
+  return <h1>{text}</h1>;
+}
 
-function Welcome(props) {
-  return <h2>Welcome, {props.name}!</h2>;
+function Subtitle({ text }) {
+  return <h2>{text}</h2>;
+}
+
+function Paragraph({ text }) {
+  return <p>{text}</p>;
+}
+
+function HighlightBox({ children }) {
+  return (
+    <div style={{ padding: "12px", border: "2px solid black", marginTop: "10px" }}>
+      {children}
+    </div>
+  );
+}
+
+// Student card component
+function StudentCard({ name, group, favoriteSubject }) {
+  return (
+    <div style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
+      <h3>{name}</h3>
+      <p>Group: {group}</p>
+      <p>Favorite Subject: {favoriteSubject}</p>
+    </div>
+  );
 }
 
 function App() {
+  const students = [
+    { id: 1, name: "Aigul", group: "G-12", favoriteSubject: "Math" },
+    { id: 2, name: "Rustam", group: "G-10", favoriteSubject: "Physics" },
+    { id: 3, name: "Adilet", group: "G-11", favoriteSubject: "Computer Science" }
+  ];
+
   return (
-    <div>
-      <h1>Engineering College React Demo</h1>
-      <Welcome name="Aida" />
-      <Welcome name="Nurlan" />
-      <Welcome name="Dastan" />
+    <div style={{ padding: "20px" }}>
+      <Title text="About This Course" />
+      <Subtitle text="React Basics" />
+
+      <Paragraph text="JSX" />
+      <Paragraph text="para check." />
+
+      <HighlightBox>
+        <strong>Key idea:</strong> check key tyepa.
+      </HighlightBox>
+
+      <hr style={{ margin: "20px 0" }} />
+
+      <Subtitle text="Student List" />
+
+      
+      {students.map((s) => (
+        <StudentCard
+          key={s.id}
+          name={s.name}
+          group={s.group}
+          favoriteSubject={s.favoriteSubject}
+        />
+      ))}
     </div>
   );
 }
